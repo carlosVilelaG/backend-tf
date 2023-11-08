@@ -7,6 +7,7 @@ const ubicacionesRouter = require('./ubicaciones');
 const usuariosRouter = require('./usuarios');
 const perfilTrabajoRouter = require('./perfil_trabajo');
 const contratos = require('./contrato');
+const profesion = require('./profesion');
 
 //Configuracion inicial
 const app = express(); /// se crea una instancia de express
@@ -28,6 +29,7 @@ app.use('/localizador', usuariosRouter);
 
 app.use('/localizador', perfilTrabajoRouter);
 app.use('/localizador', contratos);
+app.use('/localizador', profesion);
 
 //Rutas - endpoint
 app.get("/localizador", async (req, res) => {
