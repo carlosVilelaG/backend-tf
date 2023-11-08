@@ -11,4 +11,13 @@ router.get('/profesion', async (req, res) => {
     res.json(result);
 });
 
+router.get('/profesion/:id', async (req, res) => {
+    const { id } = req.params;
+    const connection = await database.getConnection();
+    const estado = "ACTIVO";
+    const query = "SELECT * FROM man_location_work.area_profesion where id_area = ? and estado = ? ";
+    const result = await connection.query(query, [id, estado]);    
+    res.json(result);
+});
+
 module.exports = router;
