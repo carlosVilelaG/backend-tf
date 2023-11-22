@@ -4,10 +4,6 @@ const socketIo = require('socket.io'); // Importa socket.io
 const morgan = require("morgan");
 const database = require("./database");
 const cors = require("cors");
-console.log(process.env.DATABASE);
-console.log(process.env.USER);
-console.log(process.env.PASSWORD);
-console.log(process.env.HOST);
 
 const ubicacionesRouter = require('./ubicaciones');
 const usuariosRouter = require('./usuarios');
