@@ -9,6 +9,8 @@ RUN npm install
 # Copiar todos los archivos del proyecto al contenedor
 COPY . .
 # Indicar el puerto que la aplicación usará
-EXPOSE 4000
+ENV PORT 8080
+ENV HOST 0.0.0.0
+EXPOSE 8080
 # Comando para iniciar la aplicación
 CMD [ "npm", "run", "dev" ]
