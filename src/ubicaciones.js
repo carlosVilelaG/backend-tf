@@ -9,8 +9,9 @@ router.get('/usuario/ubicacion/:email', async (req, res) => {
                   "where ub.identificacion_usuario = us.identificacion "+
                   "and us.email= ?";
     const result = await connection.query(query, [email]);
+    console.log('Email llego:::',email, ":: valor ::");
     const { identificacion_usuario, ...ubicacionData } = result[0];
-        res.json(ubicacionData);
+    res.json(ubicacionData);
 });
 
 
