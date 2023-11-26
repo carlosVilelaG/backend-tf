@@ -49,10 +49,12 @@ app.use('/localizador', profesion);
 
 // Configuracion del puerto
 const PORT = app.get("port") || 4000;
+
 server.listen(PORT, () => { // Ahora usas server.listen en lugar de app.listen
   console.log(`Servidor escuchando comunicaciones en el puerto ${PORT}`);
 });
 
-//app.set("port", 4000);
-//app.listen(app.get("port"));
-//console.log("Escuchando comunicacones al puerto " + app.get("port"));
+// testeo de de server
+app.get('/',(req,res)=>{
+  res.send('Backend con Node js - Express + Crud Api + mysql');
+});
