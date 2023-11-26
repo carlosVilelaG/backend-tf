@@ -55,6 +55,6 @@ server.listen(PORT, () => { // Ahora usas server.listen en lugar de app.listen
 });
 
 // testeo de de server
-app.get('/',(req,res)=>{
-  res.send('Backend con Node js - Express + Crud Api + mysql');
+app.get('/', async(req,res)=>{
+  res.json({ status: 'Backend con Node js - Express + Crud Api + mysql'});
 });
