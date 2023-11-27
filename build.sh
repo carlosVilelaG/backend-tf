@@ -6,7 +6,7 @@ DB_PASS=root202311
 DB_NAME=man_location_work
 
 #construye el contenedor
-gcloud build submit --tag gcr.io/$GOOGLE_PROJECT_ID/$CLOUD_RUN_SERVICE --project=$GOOGLE_PROJECT_ID
+gcloud builds submit --tag gcr.io/$GOOGLE_PROJECT_ID/$CLOUD_RUN_SERVICE --project=$GOOGLE_PROJECT_ID
 
 #agregamos la instancia a cloud, 
 gcloud run deploy $CLOUD_RUN_SERVICE \

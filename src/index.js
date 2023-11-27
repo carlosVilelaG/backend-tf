@@ -49,7 +49,7 @@ app.use('/localizador', contratos);
 app.use('/localizador', profesion);
 
 // Configuracion del puerto
-const PORT = app.get("port") || 4000;
+const PORT = app.get("port") || 8080;
 
 server.listen(PORT, () => { // Ahora usas server.listen en lugar de app.listen
   console.log(`Servidor escuchando comunicaciones en el puerto ${PORT}`);
