@@ -7,19 +7,21 @@ const connection = mysql.createConnection({
   password : process.env.DB_PASSWORD, // Reemplaza con tu contraseña
   database : process.env.DB_DATABASE // Reemplaza con el nombre de tu base de datos
 });
-console.log('host::',    process.env.DB_HOST);
-console.log('usuario::', process.env.DB_USER);
-console.log('PASWORD::', process.env.DB_PASSWORD);
-console.log('DATABASE::',process.env.DB_DATABASE);
+
 // Conectar a la base de datos
-connection.connect(error => {
-  if (error) {
-    console.error('Error al conectar a la base de datos: ' + error.stack);
-    return;
-  }
-
-  console.log('Conectado a la base de datos con el ID ' + connection.threadId);
-});
-
+const testDbConnection = () => {
+  return new Promise((resolve, reject) => {
+      connection.connect((err) => {
+          if (err) {
+              console.error('Error al conectar a la base de datos:: ', err);
+              reject(err);
+          } else {
+              console.log('Conexión a la base de datos exitosa');
+              connection.end();
+              resolve('Conexión a la base de datos exitosa::Backend con Node js - Express + Crud Api + mysql');
+          }
+      });
+  });
+};
 // Cierra la conexión
-connection.end();
+module.exports = { testDbConnection };

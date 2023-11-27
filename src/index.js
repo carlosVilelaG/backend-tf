@@ -10,6 +10,7 @@ const usuariosRouter = require('./usuarios');
 const perfilTrabajoRouter = require('./perfil_trabajo');
 const contratos = require('./contrato');
 const profesion = require('./profesion');
+const { testDbConnection } = require('./testdb');
 
 //Configuracion inicial
 const app = express(); /// se crea una instancia de express
@@ -54,7 +55,16 @@ server.listen(PORT, () => { // Ahora usas server.listen en lugar de app.listen
   console.log(`Servidor escuchando comunicaciones en el puerto ${PORT}`);
 });
 
-// testeo de de server
+// testeo de Server Conexion
+app.get('/test', async (req, res) => {
+  try {
+      const result = await testDbConnection();
+      res.send(result);
+  } catch (error) {
+      res.status(500).send('Error al conectar a la base de datos.');
+  }
+});
+// testeo de Server levantado
 app.get('/', async(req,res)=>{
   res.json({ status: 'Backend con Node js - Express + Crud Api + mysql'});
 });
