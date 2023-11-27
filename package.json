@@ -8,7 +8,7 @@
     "dev": "nodemon src/index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Carlos Vilela",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",

@@ -61,7 +61,8 @@ app.get('/test', async (req, res) => {
       const result = await testDbConnection();
       res.send(result);
   } catch (error) {
-      res.status(500).send('Error al conectar a la base de datos.');
+    console.log('Error controlado');
+      res.status(500).send(`:::Error al conectar a la base de datos:  ${error.message}`);
   }
 });
 // testeo de Server levantado
