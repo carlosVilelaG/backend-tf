@@ -17,7 +17,7 @@ const app = express(); /// se crea una instancia de express
 const server = http.createServer(app); // Crea un servidor HTTP con Express
 const io = socketIo(server, {
   cors: {
-    origin: "http://localhost:4200", // Ajusta esto para permitir conexiones desde el origen de Angular
+    origin: ["http://localhost:4200", "https://carlosvilelag.github.io"], // Ajusta esto para permitir conexiones desde el origen de Angular
     methods: ["GET", "POST"]
   }
 });
@@ -34,7 +34,7 @@ io.on('connection', (socket) => {
 
 ///Middlewares
 app.use(cors({
-    origin:["http://127.0.0.1:4200","http://localhost:4200"]
+    origin:["http://127.0.0.1:4200","http://localhost:4200", "https://carlosvilelag.github.io"]
 }));
 app.use(morgan("dev"));
 app.use(express.json());
@@ -69,3 +69,23 @@ app.get('/test', async (req, res) => {
 app.get('/', async(req,res)=>{
   res.json({ status: 'Backend con Node js - Express + Crud Api + mysql'});
 });
+
+// Configuración de CORS para permitir múltiples orígenes
+const allowedOrigins = [
+  "http://127.0.0.1:4200",
+  "http://localhost:4200",
+  "https://carlosvilelag.github.io" // Agrega tu origen de frontend aquí
+];
+
+app.use(cors({
+  origin: function(origin, callback){
+    // Permite solicitudes sin 'origin' (como aplicaciones móviles o `curl` requests)
+    if(!origin) return callback(null, true);
+    
+    if(allowedOrigins.indexOf(origin) === -1){
+      var msg = 'La política CORS para este sitio no permite acceso desde el origen especificado.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  }
+}));
