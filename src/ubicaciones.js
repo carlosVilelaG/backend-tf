@@ -10,8 +10,7 @@ router.get('/usuario/ubicacion/:email', async (req, res) => {
                   "and us.email= ?";
     const result = await connection.query(query, [email]);
     console.log('Email llego:::',email, ":: valor ::");
-    const { identificacion_usuario, ...ubicacionData } = result[0];
-    res.json(ubicacionData);
+    res.json(result[0]);
 });
 
 

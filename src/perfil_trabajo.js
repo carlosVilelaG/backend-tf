@@ -5,7 +5,6 @@ const bcrypt = require('bcrypt');
 
 
 router.get('/perfilestrabajo', async (req, res) => {
-    ///const { email } = req.params;
     const connection = await database.getConnection();
     const rolTrabajdor = 2;
     const query = "SELECT us.id, us.nombres, us.email, us.identificacion, ub.latitud, ub.longitud, pr.introduccion ,  pr.profesion "+
