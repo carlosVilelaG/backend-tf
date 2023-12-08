@@ -10,6 +10,7 @@ const usuariosRouter = require('./usuarios');
 const perfilTrabajoRouter = require('./perfil_trabajo');
 const contratos = require('./contrato');
 const profesion = require('./profesion');
+const usuarioPerfil = require('./usuario_perfil');
 const { testDbConnection } = require('./testdb');
 
 //Configuracion inicial
@@ -47,6 +48,7 @@ app.use('/localizador', usuariosRouter);
 app.use('/localizador', perfilTrabajoRouter);
 app.use('/localizador', contratos);
 app.use('/localizador', profesion);
+app.use('/localizador', usuarioPerfil);
 
 // Configuracion del puerto
 const PORT = app.get("port") || 8080;
