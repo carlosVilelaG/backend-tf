@@ -13,7 +13,7 @@ router.post('/usuario/crear', async (req, res) => {
         // Encriptar la contraseña
         const hashedPassword = await bcrypt.hash(usuario.password, saltRounds);
         // Insertar usuario
-        const queryUsuario = 'INSERT INTO Usuario (nombres, email, password, id_rol, estado, identificacion, tipo_identificacion) VALUES (?,?,?,?,?,?,?)';
+        const queryUsuario = 'INSERT INTO usuario (nombres, email, password, id_rol, estado, identificacion, tipo_identificacion) VALUES (?,?,?,?,?,?,?)';
         const resultUsuario = await connection.query(queryUsuario, [usuario.nombres,usuario.email, hashedPassword, usuario.rol, "activo", usuario.identificacion,usuario.tipoIdentificacion]);
         
         const idUsuario = resultUsuario.insertId;
