@@ -11,7 +11,7 @@ router.get('/perfilestrabajo', async (req, res) => {
     "FROM man_location_work.ubicacion  ub, man_location_work.usuario us, man_location_work.perfil_trabajo pr "+
     "where ub.identificacion_usuario = us.identificacion "+
     "and us.id = pr.id_usuario and us.id_rol = ?";
-    const result = await connection.query(query, [rolTrabajdor]);
+    const [result] = await connection.query(query, [rolTrabajdor]);
     res.json(result);
 });
 
@@ -25,7 +25,7 @@ router.get('/perfilestrabajo/:profesion', async (req, res) => {
     "where ub.identificacion_usuario = us.identificacion "+
     "and us.id = pr.id_usuario and us.id_rol = ? "+
     "and pr.profesion = ? and pr.profesion = ap.id_area";
-    const result = await connection.query(query, [rolTrabajdor, profesion]);
+    const [result] = await connection.query(query, [rolTrabajdor, profesion]);
     res.json(result);
 });
 

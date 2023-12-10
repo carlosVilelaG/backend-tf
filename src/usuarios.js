@@ -1,48 +1,39 @@
 const express = require('express');
-const database = require("./database");
+const pool = require("./database");
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 router.post("/usuario/login", async (req, res) => {
+  console.log('Inicio del endpoint /usuario/login');
+  
+  (async () => {
     try {
       const { email, password } = req.body;
-      const connection = await database.getConnection();
-      const query = "SELECT * FROM usuario WHERE email = ?";
-      const users = await connection.query(query, [email]);
+      // al usar query se retorna como matriz, y cierra internamente la conexion de la consulta
+      const [users] = await pool.query("SELECT * FROM usuario WHERE email = ?", [email]);
 
       if (users.length > 0) {
-        const user = users[0];
-        // Usamos la versión asíncrona de bcrypt para verificar la contraseña y evitar bloqueos
-        bcrypt.hash(password, saltRounds, function(err, hash) {
-            if (err) {
-              console.error('############# Error al generar hash:', hash);
+        const user = users[0];   
+        const passwordIsValid = await bcrypt.compare(password, users[0].password);
+            if (passwordIsValid) {
+                // Lógica cuando la contraseña es válida
+               const { password, ...userData } = user;
+               res.json(userData);
             } else {
-              console.log('############# Hash de la contraseña:', hash);
+                // Lógica cuando la contraseña no es válida
+               res.status(401).json({ error: "Error al verificar la contraseña" });    
             }
-          });                
-    
-
-        bcrypt.compare(password, user.password, (err, passwordIsValid) => {
-          if (err) {
-            // Manejamos el error aquí
-            res.status(500).json({ error: "Error al verificar la contraseña" });
-          } else if (passwordIsValid) {
-            // Suponiendo que no quieres devolver la contraseña,
-            // puedes hacer algo como esto: se quita la contraseña del objeto a devolver
-            const { password, ...userData } = user;
-            res.json(userData);
-          } else {
-            res.status(401).json({ message: "Credenciales inválidas." });
-          }
-        });
+          
       } else {
         res.status(402).json({ message: "Usuario no existe." });
       }
     } catch (error) {
-      console.error("Error en la conexión o la consulta:", error);
+      console.error('Error connecting to the MySQL server:', error);
       res.status(500).json({ error: error.message });
     }
-  });
+  })();
+  
+});
 
-  module.exports = router;
+module.exports = router;

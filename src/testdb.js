@@ -3,6 +3,7 @@ const mysql = require('mysql');
 const database = require("./database");
 // Configuración de la conexión a la base de datos MySQL
 const connection = mysql.createConnection({
+  //host: process.env.DB_HOST,
   user     : process.env.DB_USER, // Reemplaza con tu usuario de MySQL
   password : process.env.DB_PASSWORD, // Reemplaza con tu contraseña
   database : process.env.DB_DATABASE, // Reemplaza con el nombre de tu base de datos

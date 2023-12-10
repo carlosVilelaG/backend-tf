@@ -15,8 +15,8 @@ router.post('/usuario/crear', async (req, res) => {
         // Insertar usuario
         const queryUsuario = 'INSERT INTO usuario (nombres, email, password, id_rol, estado, identificacion, tipo_identificacion) VALUES (?,?,?,?,?,?,?)';
         const resultUsuario = await connection.query(queryUsuario, [usuario.nombres,usuario.email, hashedPassword, usuario.rol, "activo", usuario.identificacion,usuario.tipoIdentificacion]);
-        
-        const idUsuario = resultUsuario.insertId;
+        console.log('resultado de usuario:::',resultUsuario[0]);
+        const idUsuario = resultUsuario[0].insertId;
 
         // Insertar perfil
         const queryPerfil = 'INSERT INTO perfil_trabajo (id_usuario, profesion, tiempo_experiencia, introduccion) VALUES (?, ?, ?, ?)';
@@ -28,8 +28,6 @@ router.post('/usuario/crear', async (req, res) => {
         await connection.rollback(); // Revertir cambios si hay error
         console.error(error);
         res.status(500).send({ message: "Error al crear el usuario y perfil" });
-    } finally {
-        connection.end(); // Liberar conexión
     }
 })
 

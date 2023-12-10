@@ -1,18 +1,16 @@
 // Configuración de la conexión a la base de datos MySQL
-const mysql = require("promise-mysql");
+const mysql = require("mysql2/promise");
 // para ver el contenido de .env usamos dotenv, hay que importar
 const dotenv = require("dotenv");
 dotenv.config()
 
-const connection = mysql.createConnection({
+const pool = mysql.createPool({
+    //host: process.env.DB_HOST,
     database:process.env.DB_DATABASE,
     user:process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     socketPath: `/cloudsql/${process.env.INSTANCE_CONNECTION_NAME}`,
 })
 
-const getConnection = async ()=> await connection;
 
-module.exports = {
-    getConnection
-}
+module.exports = pool;

@@ -18,7 +18,7 @@ const app = express(); /// se crea una instancia de express
 const server = http.createServer(app); // Crea un servidor HTTP con Express
 const io = socketIo(server, {
   cors: {
-    origin: ["http://localhost:4200", "https://carlosvilelag.github.io"], // Ajusta esto para permitir conexiones desde el origen de Angular
+    origin: ["http://127.0.0.1:4200","http://localhost:4200","https://carlosvilelag.github.io"],
     methods: ["GET", "POST"]
   }
 });
@@ -77,7 +77,9 @@ const allowedOrigins = [
   "http://127.0.0.1:4200",
   "http://localhost:4200",
   "https://carlosvilelag.github.io" // Agrega tu origen de frontend aquí
+  
 ];
+
 
 app.use(cors({
   origin: function(origin, callback){
@@ -90,4 +92,4 @@ app.use(cors({
     }
     return callback(null, true);
   }
-}));
+})); 
