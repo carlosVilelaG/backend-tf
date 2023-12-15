@@ -24,8 +24,7 @@ const io = socketIo(server, {
 });
 // Configuraciones de socket.io
 io.on('connection', (socket) => {
-  console.log('Cliente conectado con socket.io');
-  
+  console.log('Cliente conectado con socket.io');  
   socket.on('disconnect', () => {
     console.log('Cliente desconectado');
   });
@@ -76,7 +75,7 @@ app.get('/', async(req,res)=>{
 const allowedOrigins = [
   "http://127.0.0.1:4200",
   "http://localhost:4200",
-  "https://carlosvilelag.github.io" // Agrega tu origen de frontend aquí
+  "https://carlosvilelag.github.io" // Agrega origen de frontend aquí
   
 ];
 
