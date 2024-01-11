@@ -36,4 +36,28 @@ router.post("/usuario/login", async (req, res) => {
   
 });
 
+
+router.get("/usuario/nombreusuario/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const conn = await pool.getConnection();
+
+    const query =
+      "SELECT u.nombres FROM man_location_work.usuario u WHERE u.id = ?";
+    const [result] = await conn.query(query, [id]);
+
+    conn.release();
+
+    if (result.length > 0) {
+      const nombre = result[0].nombres;
+      res.json({ nombre });
+    } else {
+      res.status(404).json({ message: "No se encontró el usuario con el ID proporcionado" });
+    }
+  } catch (error) {
+    console.error("Error al consultar el nombre del usuario:", error);
+    res.status(500).json({ message: "Error al consultar el nombre del usuario", error: error.message });
+  }
+});
+
 module.exports = router;

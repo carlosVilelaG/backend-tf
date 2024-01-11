@@ -2,7 +2,6 @@ const express = require("express");
 const http = require('http'); // Importa el módulo http
 const socketIo = require('socket.io'); // Importa socket.io
 const morgan = require("morgan");
-const database = require("./database");
 const cors = require("cors");
 
 const ubicacionesRouter = require('./ubicaciones');
@@ -11,6 +10,7 @@ const perfilTrabajoRouter = require('./perfil_trabajo');
 const contratos = require('./contrato');
 const profesion = require('./profesion');
 const usuarioPerfil = require('./usuario_perfil');
+const calificacion = require('./calificacion');
 const { testDbConnection } = require('./testdb');
 
 //Configuracion inicial
@@ -48,14 +48,15 @@ app.use('/localizador', perfilTrabajoRouter);
 app.use('/localizador', contratos);
 app.use('/localizador', profesion);
 app.use('/localizador', usuarioPerfil);
+app.use('/localizador', calificacion);
 
 // Configuracion del puerto
-const PORT = app.get("port") || 8080;
+/*const PORT = app.get("port") || 4000;
 
 server.listen(PORT, () => { // Ahora usas server.listen en lugar de app.listen
   console.log(`Servidor escuchando comunicaciones en el puerto ${PORT}`);
 });
-
+*/
 // testeo de Server Conexion
 app.get('/test', async (req, res) => {
   try {
@@ -92,3 +93,6 @@ app.use(cors({
     return callback(null, true);
   }
 })); 
+
+module.exports = app;
+
