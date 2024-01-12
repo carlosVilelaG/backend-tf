@@ -63,6 +63,28 @@ router.post("/calificacion/crear", async (req, res) => {
     }
   });
 
+  router.put("/calificacion/editar", async (req, res) => {
+    const { id_calificacion, nivel_calificacion, comentario } = req.body;
+    try {
+      const conn = await database.getConnection();
+      const query =
+        "UPDATE man_location_work.calificacion SET nivel_calificacion = ?, comentario = ? WHERE id_calificacion = ?";
+      const result = await conn.query(query, [nivel_calificacion, comentario, id_calificacion]);
+  
+      conn.release();
+      if (result[0].affectedRows > 0) {
+        res.json({ message: "Calificacion actualizado con éxito::." });
+      } else {
+        res.status(404).json({ message: "Calificacion no encontrado:." });
+      }
+    } catch (error) {
+      console.error("Error al actualizar calificacion:", error);
+      res.status(500).json({
+        message: "Error al actualizar calificacion",
+        error: error.message,
+      });
+    }
+  });
 
   router.get('/calificacion/:idContratante', async (req, res) => {
     try {
