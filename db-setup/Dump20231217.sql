@@ -23,7 +23,7 @@ SET @@SESSION.SQL_LOG_BIN= 0;
 -- GTID state at the beginning of the backup 
 --
 
-SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ '22bd158d-9642-11ee-a197-42010a400003:1-149376';
+SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ '22bd158d-9642-11ee-a197-42010a400003:1-614169';
 
 --
 -- Table structure for table `area_profesion`
@@ -61,11 +61,11 @@ DROP TABLE IF EXISTS `calificacion`;
 CREATE TABLE `calificacion` (
   `ID_CALIFICACION` int NOT NULL AUTO_INCREMENT,
   `NIVEL_CALIFICACION` int NOT NULL,
-  `COMENTARIO` varchar(500) NOT NULL,
+  `COMENTARIO` varchar(500) DEFAULT NULL,
   `ID_USUARIO_TRABAJADOR` int NOT NULL,
-  `ID_CONTRATO` int DEFAULT NULL,
+  `ID_CONTRATO` int NOT NULL,
   PRIMARY KEY (`ID_CALIFICACION`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -74,7 +74,7 @@ CREATE TABLE `calificacion` (
 
 LOCK TABLES `calificacion` WRITE;
 /*!40000 ALTER TABLE `calificacion` DISABLE KEYS */;
-INSERT INTO `calificacion` VALUES (1,10,'SOY JUAN PUGUAVE, BUEN TRABAJO , LO RECOMIENDO',2,1),(2,9,'SOY CARLOS VILELA, REALIZO EL TRABAJO ADECUADAMENTE SIN PROBLEMAS.',4,2);
+INSERT INTO `calificacion` VALUES (1,10,'comentaro del trabaj realizado.',2,1),(2,9,'SOY CARLOS VILELA, REALIZO EL TRABAJO ADECUADAMENTE SIN PROBLEMAS.10',4,2),(3,7,'prueba de edicion desde app',3,7);
 /*!40000 ALTER TABLE `calificacion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -94,8 +94,9 @@ CREATE TABLE `contrato` (
   `fecha_inicio` datetime DEFAULT NULL,
   `fecha_fin` datetime DEFAULT NULL,
   `descripcion` varchar(500) DEFAULT NULL,
+  `comentario` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id_contrato`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -104,7 +105,7 @@ CREATE TABLE `contrato` (
 
 LOCK TABLES `contrato` WRITE;
 /*!40000 ALTER TABLE `contrato` DISABLE KEYS */;
-INSERT INTO `contrato` VALUES (1,1,'TERMINADO',2,2,'2023-11-01 00:00:00','2023-11-03 00:00:00','contrato para hacer un deber'),(2,1,'TERMINADO',2,4,'2023-11-01 00:00:00','2023-11-01 00:00:00','contrato para hacer otro deber'),(3,1,'CONTRATADO',2,6,'2023-11-01 00:00:00','2023-11-01 00:00:00','trabajo de prueba en post man prueba de insercion de contrato'),(4,1,'CONTRATADO',2,6,'2023-11-01 00:00:00','2023-11-01 00:00:00','trabajo de prueba en post man prueba de insercion de contrato');
+INSERT INTO `contrato` VALUES (1,1,'TERMINADO',2,2,'2023-11-01 00:00:00','2023-11-03 00:01:00','contrato para hacer un deber','PRUEBA DE ACTUALIZACION CONTRATO'),(2,1,'TERMINADO',2,4,'2023-11-01 00:00:00','2023-11-01 00:00:00','contrato para hacer otro deber',NULL),(3,1,'TERMINADO',1,6,'2023-11-01 00:00:00','2023-11-01 05:00:00','trabajo de prueba en post man prueba de insercion de contrato','pruebas de editqado'),(4,1,'CONTRATADO',2,6,'2023-11-01 00:00:00','2023-11-02 11:00:00','trabajo de prueba en post man prueba de insercion de contrato','se termina contrato exitoso'),(5,1,'CONTRATADO',3,4,'2024-01-10 00:00:00','2024-01-17 00:00:00','Para tramitar unos temas legales de un a denuncioa laboral',NULL),(7,1,'CONTRATADO',1,3,'2024-01-12 00:00:00','2024-01-16 05:00:00','para realiozar varios enchufes en caleta, le pago 100 $','Estoy esperando que termine el contrato para prueba');
 /*!40000 ALTER TABLE `contrato` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -186,7 +187,7 @@ CREATE TABLE `ubicacion` (
 
 LOCK TABLES `ubicacion` WRITE;
 /*!40000 ALTER TABLE `ubicacion` DISABLE KEYS */;
-INSERT INTO `ubicacion` VALUES ('0910000001','0986648315','-2.0138','-79.8670','ACTIVO','cdla. arbolletaa'),('0910000002','0969240646','-2.24334','-79.89326','ACTIVO','cdla valdivia'),('0910000003','0968792787','-2.177231','-79.897262','ACTIVO','CDLA KENNDY VIEJA CERCA DE UNIVERSIDAD DE GUAYAQUIL'),('0917262198','0989968908','-2.229619','-79.8982','ACTIVO','moll del sur frente a pyca'),('0923232323','0989666701','-2.26228','-79.87794','ACTIVO','cerca del pedregal'),('0951515151','0959904276','-2.274918','-79.892900','ACTIVO','cerca del hospital general del guasmo');
+INSERT INTO `ubicacion` VALUES ('0910000001','0986648315','-2.0138','-79.8670','ACTIVO','cdla. arbolletaa'),('0910000002','0969240646','-2.24334','-79.89326','ACTIVO','cdla valdivia'),('0910000003','0968792787','-2.177231','-79.897262','ACTIVO','CDLA KENNDY VIEJA CERCA DE UNIVERSIDAD DE GUAYAQUIL'),('0917262198','0989968908','-2.2755920250169908','-79.87723254968581','ACTIVO','moll del sur frente a pyca'),('0923232323','0989666701','-2.26228','-79.87794','ACTIVO','cerca del pedregal'),('0951515151','0959904276','-2.274918','-79.892900','ACTIVO','cerca del hospital general del guasmo');
 /*!40000 ALTER TABLE `ubicacion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -232,4 +233,4 @@ SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-17 14:00:14
+-- Dump completed on 2024-01-13 12:14:13

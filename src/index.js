@@ -4,6 +4,7 @@ const socketIo = require('socket.io'); // Importa socket.io
 const morgan = require("morgan");
 const cors = require("cors");
 
+
 const ubicacionesRouter = require('./ubicaciones');
 const usuariosRouter = require('./usuarios');
 const perfilTrabajoRouter = require('./perfil_trabajo');
@@ -50,13 +51,6 @@ app.use('/localizador', profesion);
 app.use('/localizador', usuarioPerfil);
 app.use('/localizador', calificacion);
 
-// Configuracion del puerto
-/*const PORT = app.get("port") || 4000;
-
-server.listen(PORT, () => { // Ahora usas server.listen en lugar de app.listen
-  console.log(`Servidor escuchando comunicaciones en el puerto ${PORT}`);
-});
-*/
 // testeo de Server Conexion
 app.get('/test', async (req, res) => {
   try {
@@ -93,6 +87,7 @@ app.use(cors({
     return callback(null, true);
   }
 })); 
+
 
 module.exports = app;
 
