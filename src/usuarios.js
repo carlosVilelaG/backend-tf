@@ -4,8 +4,7 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-router.post("/usuario/login", async (req, res) => {
-  console.log('Inicio del endpoint /usuario/login');
+router.post("/usuario/login", async (req, res) => {  
   
   (async () => {
     try {
@@ -37,6 +36,18 @@ router.post("/usuario/login", async (req, res) => {
 });
 
 
+router.get('/usuario/emailUsuario/:email', async (req, res) => {
+  const { email } = req.params;
+  const connection = await pool.getConnection();
+  const query = "SELECT * FROM man_location_work.usuario WHERE email = ?";
+  const [result] = await connection.query(query, [email]);
+  connection.release();
+  if (result.length > 0) {
+    delete result[0].password;
+  }
+  res.json(result);
+});
+
 router.get("/usuario/nombreusuario/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -59,5 +70,8 @@ router.get("/usuario/nombreusuario/:id", async (req, res) => {
     res.status(500).json({ message: "Error al consultar el nombre del usuario", error: error.message });
   }
 });
+
+
+
 
 module.exports = router;
